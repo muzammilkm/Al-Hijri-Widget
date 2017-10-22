@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="hijri_months_arabic">
+        <item>محرّم</item>
+        <item>صفر</item>
+        <item>ربيع الأول</item>
+        <item>ربيع الثاني</item>
+        <item>جمادى الأولى</item>
+        <item>جمادى الثاني</item>
+        <item>رجب</item>
+        <item>شعبان</item>
+        <item>رمضان</item>
+        <item>شوال</item>
+        <item>ذو القعدة</item>
+        <item>ذو الحجة</item>
+    </string-array>
+    <string-array name="hijri_months_english">
+        <item>Muharram</item>
+        <item>Safar</item>
+        <item>Rabi-al Awwal</item>
+        <item>Rabi-al Thani</item>
+        <item>Jumada al-Ula</item>
+        <item>Jumada al-Thani</item>
+        <item>Rajab</item>
+        <item>Sha\'ban</item>
+        <item>Ramadhan</item>
+        <item>Shawwal</item>
+        <item>Dhul Qa\'dah</item>
+        <item>Dhul Hijjah</item>
+    </string-array>
+</resources>

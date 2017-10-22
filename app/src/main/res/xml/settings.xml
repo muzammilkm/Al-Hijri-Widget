@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <com.marwahtechsolutions.hijriwidget.preferences.LanguagePreference
+        android:entries="@array/entries_Language"
+        android:entryValues="@array/entries_Language"
+        android:key="pLanguage"
+        android:persistent="true"
+        android:summary="@string/app_setting_language_summary"
+        android:title="@string/app_setting_language_title" />
+
+    <com.marwahtechsolutions.hijriwidget.preferences.MoonSightingPreference
+        android:dialogTitle="@string/app_setting_moonSighting_title"
+        android:key="pMoonSight"
+        android:persistent="true"
+        android:summary="@string/app_setting_moonSighting_summary"
+        android:title="@string/app_setting_moonSighting_title"
+        />
+
+    <com.marwahtechsolutions.hijriwidget.preferences.ThemePreference
+        android:dialogTitle="@string/app_setting_theme"
+        android:key="pTheme"
+        android:persistent="true"
+        android:summary="@string/app_setting_theme_summary"
+        android:title="@string/app_setting_theme" />
+
+</PreferenceScreen>
