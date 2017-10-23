@@ -59,8 +59,4 @@ public class HijriAdjustor {
     public String daysFormat(){
         return String.format("%d", days);
     }
-
-    public static String getDefaultValue() {
-        return "6,0,0";
-    }
 }

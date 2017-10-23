@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Al Hijri</string>
+    <string name="app_name">Al Hijri Widget</string>
     <color name="white_color">#FFFFFF</color>
     <color name="gray_color">#CCCCCC</color>
 
