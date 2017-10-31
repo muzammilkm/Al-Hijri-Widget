@@ -91,9 +91,8 @@ public class HijriWidgetProvider extends AppWidgetProvider {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         PendingIntent pendingIntent = CreateConfigureIntent(context, appWidgetId);
         //alarmManager.cancel(pendingIntent);
-        long interval = AlarmManager.INTERVAL_HOUR;
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
-                HijriCalendar.getNextDayMilliSeconds(hour, minute), interval, pendingIntent);
+                HijriCalendar.getNextDayMilliSeconds(hour, minute), AlarmManager.INTERVAL_DAY, pendingIntent);
     }
 
     private void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
