@@ -19,6 +19,7 @@ import android.widget.RemoteViews;
 
 import com.marwahtechsolutions.hijriwidget.models.HijriAdjustor;
 import com.marwahtechsolutions.hijriwidget.models.HijriCalendar;
+import com.marwahtechsolutions.hijriwidget.models.Logger;
 
 public class HijriWidgetProvider extends AppWidgetProvider {
     private static final String TAG = "Al Hijri Widget";
@@ -26,7 +27,7 @@ public class HijriWidgetProvider extends AppWidgetProvider {
     @Override
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);
-        Log.d(TAG, String.format("On Received %s %d", intent.getAction(), System.currentTimeMillis()));
+        Logger.d(TAG, String.format("On Received %s %d", intent.getAction(), System.currentTimeMillis()));
 
         ComponentName thisAppWidget = new ComponentName(
                 context.getPackageName(), getClass().getName());
@@ -50,7 +51,7 @@ public class HijriWidgetProvider extends AppWidgetProvider {
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager,
                          int[] appWidgetIds) {
-        Log.d(TAG, String.format("On Update %d ", System.currentTimeMillis()));
+        Logger.d(TAG, String.format("On Update %d ", System.currentTimeMillis()));
         for (int appWidgetID : appWidgetIds) {
             RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
                     R.layout.main);
@@ -82,15 +83,15 @@ public class HijriWidgetProvider extends AppWidgetProvider {
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetID);
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0,
-                intent, PendingIntent.FLAG_CANCEL_CURRENT);
+                intent, PendingIntent.FLAG_UPDATE_CURRENT);
         return pendingIntent;
     }
 
     private void SetWakeUp(Context context, int hour, int minute, int appWidgetId) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         PendingIntent pendingIntent = CreateConfigureIntent(context, appWidgetId);
-        alarmManager.cancel(pendingIntent);
-        long interval = AlarmManager.INTERVAL_DAY;
+        //alarmManager.cancel(pendingIntent);
+        long interval = AlarmManager.INTERVAL_HOUR;
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
                 HijriCalendar.getNextDayMilliSeconds(hour, minute), interval, pendingIntent);
     }
@@ -108,9 +109,9 @@ public class HijriWidgetProvider extends AppWidgetProvider {
 
         if (setAlarm) {
             SetWakeUp(context, hijriAdjustor.getHour(), hijriAdjustor.getMinute(), appWidgetId);
-            Log.d(TAG, String.format("Magrib is set to: %s", hijriAdjustor.timeFormat()));
+            Logger.d(TAG, String.format("Magrib is set to: %s", hijriAdjustor.timeFormat()));
         }
-        Log.d(TAG, "Repainting View");
+        Logger.d(TAG, "Repainting View");
 
         Map<Integer, String[]> arrHijriMonths = new HashMap<Integer, String[]>();
         Map<Integer, String[]> arrHijriDayOfWeek = new HashMap<Integer, String[]>();
