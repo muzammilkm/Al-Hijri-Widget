@@ -10,7 +10,7 @@ import android.preference.PreferenceManager;
 import android.view.KeyEvent;
 
 public class HijriConfig extends PreferenceActivity implements OnSharedPreferenceChangeListener   {
-	private static final String TAG = "HijriWidgetProvider";
+	private static final String TAG = "Al Hijri Widget";
 	private boolean isAlarm = false;
 	private int appWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
 
@@ -34,7 +34,7 @@ public class HijriConfig extends PreferenceActivity implements OnSharedPreferenc
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
 			Intent result = new Intent(this, HijriWidgetProvider.class);
-			result.setAction(AppWidgetManager.ACTION_APPWIDGET_CONFIGURE);
+			result.setAction(HijriWidgetProvider.ACTION_UPDATE);
 			result.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
 			result.putExtra("isAlarm", isAlarm);
 			setResult(RESULT_OK, result);
