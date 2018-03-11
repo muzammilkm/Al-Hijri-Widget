@@ -2,7 +2,7 @@
 <resources>
     <string-array name="hijri_days_arabic">
         <item>الأحد</item>
-        <item>لإثنين</item>
+        <item>الإثنين</item>
         <item>الثُّلَاثاء</item>
         <item>الأَرْبعاء</item>
         <item>الخَمِيس</item>
@@ -10,12 +10,12 @@
         <item>السَّبْت</item>
     </string-array>
     <string-array name="hijri_days_english">
-        <item>Ahad</item>
-        <item>Ithnin</item>
-        <item>Thulatha</item>
-        <item>Arbaa</item>
-        <item>Khams</item>
-        <item>Jumuah</item>
-        <item>Sabt</item>
+        <item>Al-aḥad</item>
+        <item>Al-ithnayn</item>
+        <item>Al-thalāthāʾ</item>
+        <item>Al-arbaʿāʾ</item>
+        <item>Al-khamīs</item>
+        <item>Al-jumuʿah</item>
+        <item>Al-sabt</item>
     </string-array>
 </resources>

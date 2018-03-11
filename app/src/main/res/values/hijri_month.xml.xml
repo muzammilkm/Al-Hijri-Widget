@@ -15,17 +15,17 @@
         <item>ذو الحجة</item>
     </string-array>
     <string-array name="hijri_months_english">
-        <item>Muharram</item>
-        <item>Safar</item>
-        <item>Rabi-al Awwal</item>
-        <item>Rabi-al Thani</item>
-        <item>Jumada al-Ula</item>
-        <item>Jumada al-Thani</item>
+        <item>Muḥarram</item>
+        <item>Ṣafar</item>
+        <item>Rabīʿ al-Awwal</item>
+        <item>Rabīʿ al-Thānī</item>
+        <item>Jumādá al-Ūlá</item>
+        <item>Jumādá al-Thāni</item>
         <item>Rajab</item>
-        <item>Sha\'ban</item>
-        <item>Ramadhan</item>
-        <item>Shawwal</item>
-        <item>Dhul Qa\'dah</item>
-        <item>Dhul Hijjah</item>
+        <item>Shaʿbān</item>
+        <item>Ramaḍān</item>
+        <item>Shawwāl</item>
+        <item>Dhū al-Qaʿdah</item>
+        <item>Dhū al-Ḥijjah</item>
     </string-array>
 </resources>

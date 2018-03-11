@@ -9,9 +9,8 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.view.KeyEvent;
 
-public class HijriConfig extends PreferenceActivity implements OnSharedPreferenceChangeListener   {
+public class HijriConfig extends PreferenceActivity {
 	private static final String TAG = "Al Hijri Widget";
-	private boolean isAlarm = false;
 	private int appWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
 
 	@Override
@@ -34,36 +33,12 @@ public class HijriConfig extends PreferenceActivity implements OnSharedPreferenc
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
 			Intent result = new Intent(this, HijriWidgetProvider.class);
-			result.setAction(HijriWidgetProvider.ACTION_UPDATE);
+			result.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
 			result.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
-			result.putExtra("isAlarm", isAlarm);
 			setResult(RESULT_OK, result);
 			sendBroadcast(result);
 			finish();
 		}
 		return (super.onKeyDown(keyCode, event));
 	}
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        isAlarm = false;
-        SharedPreferences prefs = PreferenceManager
-                .getDefaultSharedPreferences(getApplicationContext());
-        prefs.registerOnSharedPreferenceChangeListener(this);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        SharedPreferences prefs = PreferenceManager
-                .getDefaultSharedPreferences(getApplicationContext());
-        prefs.unregisterOnSharedPreferenceChangeListener(this);
-    }
-
-    @Override
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        if(key.equals("pMoonSight"))
-            isAlarm = true;
-    }
 }

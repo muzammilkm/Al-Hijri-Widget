@@ -21,7 +21,6 @@ import com.marwahtechsolutions.hijriwidget.models.HijriCalendar;
 
 public class HijriWidgetProvider extends AppWidgetProvider {
     private static final String TAG = "Al Hijri Widget";
-    public static final String ACTION_UPDATE = "com.marwahtechsolutions.hijriwidget.action.UPDATE";
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -33,14 +32,10 @@ public class HijriWidgetProvider extends AppWidgetProvider {
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
                 R.layout.main);
         int ids[] = appWidgetManager.getAppWidgetIds(thisAppWidget);
-        boolean isAlarm = false;
-        if (intent.getExtras() != null) {
-            isAlarm = intent.getExtras().getBoolean("isAlarm", false);
-        }
         for (int appWidgetID : ids) {
             switch (intent.getAction()){
                 case AppWidgetManager.ACTION_APPWIDGET_CONFIGURE:
-                case ACTION_UPDATE:
+                case AppWidgetManager.ACTION_APPWIDGET_UPDATE:
                 case Intent.ACTION_SCREEN_ON:
                     updateAppWidget(context, appWidgetManager, appWidgetID, remoteViews);
                 break;
@@ -53,42 +48,21 @@ public class HijriWidgetProvider extends AppWidgetProvider {
     public void onUpdate(Context context, AppWidgetManager appWidgetManager,
                          int[] appWidgetIds) {
         Log.d(TAG, String.format("On Update %d ", System.currentTimeMillis()));
-        for (int appWidgetID : appWidgetIds) {
-            IntentFilter intentFilter = new IntentFilter();
-            intentFilter.addAction(Intent.ACTION_SCREEN_ON);
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(Intent.ACTION_SCREEN_ON);
+        RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
+                R.layout.main);
 
+        for (int appWidgetID : appWidgetIds) {
             Context applicationContext = context.getApplicationContext();
             if (applicationContext != null) {
                 applicationContext.registerReceiver(this, intentFilter);
             } else {
                 Log.d("applicationContext", "is null and should not be null");
             }
-
-            Intent intent = new Intent(context, HijriConfig.class);
-            intent.setAction(AppWidgetManager.ACTION_APPWIDGET_CONFIGURE);
-            intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetID);
-            PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-            RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
-                    R.layout.main);
-            remoteViews.setOnClickPendingIntent(R.id.llMainBox, pendingIntent);
             updateAppWidget(context, appWidgetManager, appWidgetID, remoteViews);
         }
         super.onUpdate(context, appWidgetManager, appWidgetIds);
-    }
-
-    @Override
-    public void onDeleted(Context context, int[] appWidgetIds) {
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        for (int appWidgetID : appWidgetIds) {
-            Intent updateIntent = new Intent(context, HijriWidgetProvider.class);
-            updateIntent.setAction(ACTION_UPDATE);
-            updateIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetID);
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0,
-                    updateIntent, PendingIntent.FLAG_NO_CREATE);
-            alarmManager.cancel(pendingIntent);
-        }
-        super.onDeleted(context, appWidgetIds);
     }
 
     private void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
@@ -119,6 +93,7 @@ public class HijriWidgetProvider extends AppWidgetProvider {
                 hijriAdjustor.getHour(),
                 hijriAdjustor.getMinute());
 
+        // Refreshing the view
         remoteViews.setInt(R.id.llDateBox, "setBackgroundColor", background);
         remoteViews.setInt(R.id.llDateMonthYearBox, "setBackgroundColor", background);
 
@@ -127,6 +102,14 @@ public class HijriWidgetProvider extends AppWidgetProvider {
         remoteViews.setTextViewText(R.id.tvMonth, dateHijri.GetMonthName());
         remoteViews.setTextViewText(R.id.tvYear, dateHijri.getFormatedYear());
         remoteViews.setTextViewText(R.id.tvDayName, dateHijri.GetDayName());
+
+        // Setting Click Intent
+        Intent intent = new Intent(context, HijriConfig.class);
+        intent.setAction(AppWidgetManager.ACTION_APPWIDGET_CONFIGURE);
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        remoteViews.setOnClickPendingIntent(R.id.llMainBox, pendingIntent);
+
         appWidgetManager.updateAppWidget(appWidgetId, remoteViews);
     }
 }
