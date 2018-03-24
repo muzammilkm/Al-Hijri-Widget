@@ -18,13 +18,14 @@ import android.widget.RemoteViews;
 
 import com.marwahtechsolutions.hijriwidget.models.HijriAdjustor;
 import com.marwahtechsolutions.hijriwidget.models.HijriCalendar;
+import com.marwahtechsolutions.hijriwidget.models.Logger;
 
 public class HijriWidgetProvider extends AppWidgetProvider {
     private static final String TAG = "Al Hijri Widget";
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.d(TAG, String.format("On Received %s %d", intent.getAction(), System.currentTimeMillis()));
+        Logger.d(TAG, String.format("On Received %s %d", intent.getAction()));
         ComponentName thisAppWidget = new ComponentName(
                 context.getPackageName(), getClass().getName());
         AppWidgetManager appWidgetManager = AppWidgetManager
@@ -35,8 +36,15 @@ public class HijriWidgetProvider extends AppWidgetProvider {
         for (int appWidgetID : ids) {
             switch (intent.getAction()){
                 case AppWidgetManager.ACTION_APPWIDGET_CONFIGURE:
+                    Logger.d(TAG, String.format("On Configuration Set On %s", intent.getAction()));
+                    updateAppWidget(context, appWidgetManager, appWidgetID, remoteViews);
+                    break;
                 case AppWidgetManager.ACTION_APPWIDGET_UPDATE:
+                    Logger.d(TAG, String.format("On Widget Update On %s", intent.getAction()));
+                    updateAppWidget(context, appWidgetManager, appWidgetID, remoteViews);
+                    break;
                 case Intent.ACTION_SCREEN_ON:
+                    Logger.d(TAG, String.format("On Screen On %s", intent.getAction()));
                     updateAppWidget(context, appWidgetManager, appWidgetID, remoteViews);
                 break;
             }
@@ -47,18 +55,18 @@ public class HijriWidgetProvider extends AppWidgetProvider {
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager,
                          int[] appWidgetIds) {
-        Log.d(TAG, String.format("On Update %d ", System.currentTimeMillis()));
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(Intent.ACTION_SCREEN_ON);
+        Logger.d(TAG, "On Update");
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
                 R.layout.main);
 
         for (int appWidgetID : appWidgetIds) {
             Context applicationContext = context.getApplicationContext();
             if (applicationContext != null) {
+                IntentFilter intentFilter = new IntentFilter();
+                intentFilter.addAction(Intent.ACTION_SCREEN_ON);
                 applicationContext.registerReceiver(this, intentFilter);
             } else {
-                Log.d("applicationContext", "is null and should not be null");
+                Logger.d("applicationContext", "is null and should not be null");
             }
             updateAppWidget(context, appWidgetManager, appWidgetID, remoteViews);
         }
@@ -75,7 +83,7 @@ public class HijriWidgetProvider extends AppWidgetProvider {
         int locale = HijriCalendar.getLocale(prefs.getString("pLanguage", context.getResources().getString(R.string.app_setting_default_language)));
         int background = prefs.getInt("pTheme", context.getResources().getColor(R.color.defaultThemeColor));
 
-        Log.d(TAG, "Repainting View");
+        Logger.d(TAG, "Repainting View");
 
         Map<Integer, String[]> arrHijriMonths = new HashMap<Integer, String[]>();
         Map<Integer, String[]> arrHijriDayOfWeek = new HashMap<Integer, String[]>();
