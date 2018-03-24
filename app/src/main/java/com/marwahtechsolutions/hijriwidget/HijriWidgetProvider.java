@@ -25,7 +25,7 @@ public class HijriWidgetProvider extends AppWidgetProvider {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Logger.d(TAG, String.format("On Received %s %d", intent.getAction()));
+        Logger.d(TAG, String.format("On Received %s ", intent.getAction()));
         ComponentName thisAppWidget = new ComponentName(
                 context.getPackageName(), getClass().getName());
         AppWidgetManager appWidgetManager = AppWidgetManager
@@ -66,7 +66,7 @@ public class HijriWidgetProvider extends AppWidgetProvider {
                 intentFilter.addAction(Intent.ACTION_SCREEN_ON);
                 applicationContext.registerReceiver(this, intentFilter);
             } else {
-                Logger.d("applicationContext", "is null and should not be null");
+                Logger.d(TAG, "applicationContext is null and should not be null");
             }
             updateAppWidget(context, appWidgetManager, appWidgetID, remoteViews);
         }
