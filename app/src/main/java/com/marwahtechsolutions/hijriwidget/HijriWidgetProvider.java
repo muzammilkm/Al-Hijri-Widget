@@ -30,22 +30,16 @@ public class HijriWidgetProvider extends AppWidgetProvider {
                 context.getPackageName(), getClass().getName());
         AppWidgetManager appWidgetManager = AppWidgetManager
                 .getInstance(context);
-        RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
-                R.layout.main);
         int ids[] = appWidgetManager.getAppWidgetIds(thisAppWidget);
         for (int appWidgetID : ids) {
             switch (intent.getAction()){
                 case AppWidgetManager.ACTION_APPWIDGET_CONFIGURE:
                     Logger.d(TAG, String.format("On Configuration Set On %s", intent.getAction()));
-                    updateAppWidget(context, appWidgetManager, appWidgetID, remoteViews);
-                    break;
-                case AppWidgetManager.ACTION_APPWIDGET_UPDATE:
-                    Logger.d(TAG, String.format("On Widget Update On %s", intent.getAction()));
-                    updateAppWidget(context, appWidgetManager, appWidgetID, remoteViews);
+                    updateAppWidget(context, appWidgetManager, appWidgetID);
                     break;
                 case Intent.ACTION_SCREEN_ON:
                     Logger.d(TAG, String.format("On Screen On %s", intent.getAction()));
-                    updateAppWidget(context, appWidgetManager, appWidgetID, remoteViews);
+                    updateAppWidget(context, appWidgetManager, appWidgetID);
                 break;
             }
         }
@@ -56,25 +50,40 @@ public class HijriWidgetProvider extends AppWidgetProvider {
     public void onUpdate(Context context, AppWidgetManager appWidgetManager,
                          int[] appWidgetIds) {
         Logger.d(TAG, "On Update");
-        RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
-                R.layout.main);
+        // register Intent Action Screen On
+        Context applicationContext = context.getApplicationContext();
+        if (applicationContext != null) {
+            Logger.d(TAG, "Registering Intent Action Screen On");
+            final IntentFilter intentFilter = new IntentFilter();
+            intentFilter.addAction(Intent.ACTION_SCREEN_ON);
+            context.registerReceiver(this, intentFilter);
+        } else {
+            Logger.d(TAG, "applicationContext is null and should not be null");
+        }
 
         for (int appWidgetID : appWidgetIds) {
-            Context applicationContext = context.getApplicationContext();
-            if (applicationContext != null) {
-                IntentFilter intentFilter = new IntentFilter();
-                intentFilter.addAction(Intent.ACTION_SCREEN_ON);
-                applicationContext.registerReceiver(this, intentFilter);
-            } else {
-                Logger.d(TAG, "applicationContext is null and should not be null");
-            }
-            updateAppWidget(context, appWidgetManager, appWidgetID, remoteViews);
+            updateAppWidget(context, appWidgetManager, appWidgetID);
         }
         super.onUpdate(context, appWidgetManager, appWidgetIds);
     }
 
+    @Override
+    public void onDeleted(Context context, int[] appWidgetIds) {
+        // register Intent Action Screen On
+        Context applicationContext = context.getApplicationContext();
+        if (applicationContext != null) {
+            Logger.d(TAG, "Unregistering receiver");
+            context.unregisterReceiver(this);
+        } else {
+            Logger.d(TAG, "applicationContext is null and should not be null");
+        }
+    }
+
     private void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
-                                 int appWidgetId, RemoteViews remoteViews) {
+                                 int appWidgetId) {
+        RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
+                R.layout.main);
+
         SharedPreferences prefs = PreferenceManager
                 .getDefaultSharedPreferences(context);
 
@@ -107,9 +116,11 @@ public class HijriWidgetProvider extends AppWidgetProvider {
 
         remoteViews.setTextViewText(R.id.tvDay, dateHijri.getDay());
         remoteViews.setTextViewText(R.id.tvSuffix, dateHijri.getSuffix());
-        remoteViews.setTextViewText(R.id.tvMonth, dateHijri.GetMonthName());
+        remoteViews.setTextViewText(R.id.tvMonth, dateHijri.getMonthName());
         remoteViews.setTextViewText(R.id.tvYear, dateHijri.getFormatedYear());
-        remoteViews.setTextViewText(R.id.tvDayName, dateHijri.GetDayName());
+        remoteViews.setTextViewText(R.id.tvDayName, dateHijri.getDayName());
+
+        Logger.d(TAG, String.format("Current Hijri Date %s", dateHijri.toString()));
 
         // Setting Click Intent
         Intent intent = new Intent(context, HijriConfig.class);

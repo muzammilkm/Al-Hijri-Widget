@@ -139,11 +139,11 @@ public class HijriCalendar {
 	 * Public Getters and Setters
 	 */
 
-	public String GetDayName() {
+	public String getDayName() {
 		return this.arrHijriDayOfWeek[fields[DAY_OF_WEEK]];
 	}
 
-	public String GetMonthName() {
+	public String getMonthName() {
 		return this.arrHijriMonths[fields[MONTH]];
 	}
 
@@ -155,6 +155,8 @@ public class HijriCalendar {
     public String getDay()  {
         return String.valueOf(fields[DAY]);
     }
+
+    public String getMonth(){ return String.valueOf(fields[MONTH]);	}
 
     public String getFormatedYear() {
         return String.format("%s %s", this.getYear(), this.getERA());
@@ -201,5 +203,11 @@ public class HijriCalendar {
 		if(locale.equalsIgnoreCase("English"))
 			return EN;
 		return AR;
+	}
+
+	@Override
+	public String toString(){
+		return  String.format("%s/%s/%s %s",
+				this.getDay(), this.getMonthName(), this.getYear(), this.getERA());
 	}
 }
