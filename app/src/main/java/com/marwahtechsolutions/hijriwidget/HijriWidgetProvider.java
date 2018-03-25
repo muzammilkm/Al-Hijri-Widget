@@ -26,6 +26,8 @@ public class HijriWidgetProvider extends AppWidgetProvider {
     @Override
     public void onReceive(Context context, Intent intent) {
         Logger.d(TAG, String.format("On Received %s ", intent.getAction()));
+        super.onReceive(context, intent);
+
         ComponentName thisAppWidget = new ComponentName(
                 context.getPackageName(), getClass().getName());
         AppWidgetManager appWidgetManager = AppWidgetManager
@@ -43,13 +45,13 @@ public class HijriWidgetProvider extends AppWidgetProvider {
                 break;
             }
         }
-        super.onReceive(context, intent);
     }
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager,
                          int[] appWidgetIds) {
         Logger.d(TAG, "On Update");
+
         // register Intent Action Screen On
         Context applicationContext = context.getApplicationContext();
         if (applicationContext != null) {
@@ -68,15 +70,16 @@ public class HijriWidgetProvider extends AppWidgetProvider {
     }
 
     @Override
-    public void onDeleted(Context context, int[] appWidgetIds) {
+    public void onDisabled(Context context) {
         // register Intent Action Screen On
         Context applicationContext = context.getApplicationContext();
         if (applicationContext != null) {
             Logger.d(TAG, "Unregistering receiver");
-            context.unregisterReceiver(this);
+            applicationContext.unregisterReceiver(this);
         } else {
             Logger.d(TAG, "applicationContext is null and should not be null");
         }
+        super.onDisabled(context);
     }
 
     private void updateAppWidget(Context context, AppWidgetManager appWidgetManager,

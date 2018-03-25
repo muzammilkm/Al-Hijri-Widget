@@ -33,7 +33,7 @@ public class HijriConfig extends PreferenceActivity {
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
 			Intent result = new Intent(this, HijriWidgetProvider.class);
-			result.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+			result.setAction(AppWidgetManager.ACTION_APPWIDGET_CONFIGURE);
 			result.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
 			setResult(RESULT_OK, result);
 			sendBroadcast(result);
