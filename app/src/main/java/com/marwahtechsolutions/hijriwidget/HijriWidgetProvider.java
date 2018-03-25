@@ -5,6 +5,7 @@ import java.util.Map;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.app.Service;
 import android.appwidget.AppWidgetProvider;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
@@ -12,6 +13,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.RemoteViews;
@@ -22,7 +24,7 @@ import com.marwahtechsolutions.hijriwidget.models.Logger;
 
 public class HijriWidgetProvider extends AppWidgetProvider {
     private static final String TAG = "Al Hijri Widget";
-    public boolean isRegistered = false;
+    public static final HijriWidgetProvider receiver = new HijriWidgetProvider();
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -40,16 +42,28 @@ public class HijriWidgetProvider extends AppWidgetProvider {
                     Logger.d(TAG, String.format("On Configuration Set On %s", intent.getAction()));
                     updateAppWidget(context, appWidgetManager, appWidgetID);
                     break;
-                case AppWidgetManager.ACTION_APPWIDGET_UPDATE:
-                    Logger.d(TAG, String.format("On Update %s", intent.getAction()));
-                    updateAppWidget(context, appWidgetManager, appWidgetID);
-                    break;
                 case Intent.ACTION_SCREEN_ON:
                     Logger.d(TAG, String.format("On Screen On %s", intent.getAction()));
                     updateAppWidget(context, appWidgetManager, appWidgetID);
                 break;
             }
         }
+    }
+
+    @Override
+    public void onUpdate(Context context,
+                         AppWidgetManager appWidgetManager, int[] appWidgetIds) {
+        Logger.d(TAG, "On Update");
+        context.startService(new Intent(context, WidgetService.class));
+        for (int appWidgetId : appWidgetIds) {
+            updateAppWidget(context, appWidgetManager, appWidgetId);
+        }
+    }
+
+    @Override
+    public void onDisabled(Context context){
+        Logger.d(TAG, "On Disabled");
+        context.stopService(new Intent(context, WidgetService.class));
     }
 
     private void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
@@ -101,23 +115,6 @@ public class HijriWidgetProvider extends AppWidgetProvider {
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         remoteViews.setOnClickPendingIntent(R.id.llMainBox, pendingIntent);
-
-        // register Intent Action Screen On
-        Context applicationContext = context.getApplicationContext();
-        if (applicationContext != null) {
-            final IntentFilter intentFilter = new IntentFilter();
-            intentFilter.addAction(Intent.ACTION_SCREEN_ON);
-            if(isRegistered) {
-                Logger.d(TAG, "Unregistering Intent Action Screen On");
-                applicationContext.unregisterReceiver(this);
-            }
-            Logger.d(TAG, "Registering Intent Action Screen On");
-            applicationContext.registerReceiver(this, intentFilter);
-            isRegistered =true;
-        } else {
-            Logger.d(TAG, "applicationContext is null and should not be null");
-        }
-
 
         appWidgetManager.updateAppWidget(appWidgetId, remoteViews);
     }
