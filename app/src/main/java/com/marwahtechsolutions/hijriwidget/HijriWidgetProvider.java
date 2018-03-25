@@ -56,7 +56,7 @@ public class HijriWidgetProvider extends AppWidgetProvider {
             Logger.d(TAG, "Registering Intent Action Screen On");
             final IntentFilter intentFilter = new IntentFilter();
             intentFilter.addAction(Intent.ACTION_SCREEN_ON);
-            context.registerReceiver(this, intentFilter);
+            applicationContext.registerReceiver(this, intentFilter);
         } else {
             Logger.d(TAG, "applicationContext is null and should not be null");
         }
