@@ -22,6 +22,7 @@ import com.marwahtechsolutions.hijriwidget.models.Logger;
 
 public class HijriWidgetProvider extends AppWidgetProvider {
     private static final String TAG = "Al Hijri Widget";
+    public boolean isRegistered = false;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -39,47 +40,16 @@ public class HijriWidgetProvider extends AppWidgetProvider {
                     Logger.d(TAG, String.format("On Configuration Set On %s", intent.getAction()));
                     updateAppWidget(context, appWidgetManager, appWidgetID);
                     break;
+                case AppWidgetManager.ACTION_APPWIDGET_UPDATE:
+                    Logger.d(TAG, String.format("On Update %s", intent.getAction()));
+                    updateAppWidget(context, appWidgetManager, appWidgetID);
+                    break;
                 case Intent.ACTION_SCREEN_ON:
                     Logger.d(TAG, String.format("On Screen On %s", intent.getAction()));
                     updateAppWidget(context, appWidgetManager, appWidgetID);
                 break;
             }
         }
-    }
-
-    @Override
-    public void onUpdate(Context context, AppWidgetManager appWidgetManager,
-                         int[] appWidgetIds) {
-        Logger.d(TAG, "On Update");
-
-        // register Intent Action Screen On
-        Context applicationContext = context.getApplicationContext();
-        if (applicationContext != null) {
-            Logger.d(TAG, "Registering Intent Action Screen On");
-            final IntentFilter intentFilter = new IntentFilter();
-            intentFilter.addAction(Intent.ACTION_SCREEN_ON);
-            applicationContext.registerReceiver(this, intentFilter);
-        } else {
-            Logger.d(TAG, "applicationContext is null and should not be null");
-        }
-
-        for (int appWidgetID : appWidgetIds) {
-            updateAppWidget(context, appWidgetManager, appWidgetID);
-        }
-        super.onUpdate(context, appWidgetManager, appWidgetIds);
-    }
-
-    @Override
-    public void onDisabled(Context context) {
-        // register Intent Action Screen On
-        Context applicationContext = context.getApplicationContext();
-        if (applicationContext != null) {
-            Logger.d(TAG, "Unregistering receiver");
-            applicationContext.unregisterReceiver(this);
-        } else {
-            Logger.d(TAG, "applicationContext is null and should not be null");
-        }
-        super.onDisabled(context);
     }
 
     private void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
@@ -131,6 +101,23 @@ public class HijriWidgetProvider extends AppWidgetProvider {
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         remoteViews.setOnClickPendingIntent(R.id.llMainBox, pendingIntent);
+
+        // register Intent Action Screen On
+        Context applicationContext = context.getApplicationContext();
+        if (applicationContext != null) {
+            final IntentFilter intentFilter = new IntentFilter();
+            intentFilter.addAction(Intent.ACTION_SCREEN_ON);
+            if(isRegistered) {
+                Logger.d(TAG, "Unregistering Intent Action Screen On");
+                applicationContext.unregisterReceiver(this);
+            }
+            Logger.d(TAG, "Registering Intent Action Screen On");
+            applicationContext.registerReceiver(this, intentFilter);
+            isRegistered =true;
+        } else {
+            Logger.d(TAG, "applicationContext is null and should not be null");
+        }
+
 
         appWidgetManager.updateAppWidget(appWidgetId, remoteViews);
     }
