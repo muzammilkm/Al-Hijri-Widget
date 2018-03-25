@@ -14,12 +14,13 @@
             android:name=".HijriWidgetProvider"
             android:label="@string/app_name">
             <intent-filter>
-                <action android:name="android.intent.action.SCREEN_ON"/>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/hijri_widget_provider" />
         </receiver>
+        <service android:name=".WidgetService" android:label="Al Hijri Widget Service">
+        </service>
     </application>
 </manifest>
