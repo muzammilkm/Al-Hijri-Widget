@@ -25,10 +25,6 @@ public class HijriWidgetWorker extends Worker {
         ComponentName componentName = new ComponentName(context, HijriWidget.class);
         AppWidgetManager manager = AppWidgetManager.getInstance(context);
         int[] appWidgetIds = manager.getAppWidgetIds(componentName);
-
-        for (int appWidgetId : appWidgetIds) {
-            Log.d(HijriWidget.TAG, String.format("On doWork - widgets: %d", appWidgetId));
-        }
         Intent intent = new Intent(
                 AppWidgetManager.ACTION_APPWIDGET_UPDATE, null, context,
                 HijriWidget.class
