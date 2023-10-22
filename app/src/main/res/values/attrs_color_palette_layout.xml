@@ -1,7 +1,0 @@
-<resources>
-    <declare-styleable name="ColorPaletteLayout">
-        <attr name="palette" format="reference" />
-        <attr name="selectorHeight" format="dimension" />
-        <attr name="selectorWidth" format="dimension" />
-    </declare-styleable>
-</resources>

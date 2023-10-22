@@ -1,0 +1,43 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/llMainBox"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    style="@style/MainBox">
+    <LinearLayout
+        android:id="@+id/llDateBox"
+        style="@style/DateBox">
+        <LinearLayout
+            android:id="@+id/llDateDayBox"
+            style="@style/DateDayBox">
+            <TextView
+                android:id="@+id/tvDay"
+                android:text="15"
+                style="@style/Day" />
+            <TextView
+                android:id="@+id/tvSuffix"
+                android:text="th"
+                style="@style/Suffix" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/llDateNameDayBox"
+            style="@style/DateNameDayBox">
+            <TextView
+                android:id="@+id/tvDayName"
+                android:text="Jummah"
+                style="@style/DayName" />
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/llDateMonthYearBox"
+        style="@style/DateMonthYearBox">
+        <TextView
+            android:id="@+id/tvMonth"
+            android:text="Muharram"
+            style="@style/Month" />
+        <TextView
+            android:id="@+id/tvYear"
+            android:text="1445"
+            style="@style/Year" />
+    </LinearLayout>
+</LinearLayout>

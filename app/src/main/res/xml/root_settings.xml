@@ -1,0 +1,36 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="@string/preference_header">
+
+        <ListPreference
+            android:defaultValue="@string/default_language"
+            app:entries="@array/language_list"
+            app:entryValues="@array/language_values"
+            app:key="pLanguage"
+            app:title="@string/language"
+            app:useSimpleSummaryProvider="true" />
+
+        <SwitchPreference
+            android:defaultValue="@string/default_adjust_past_future"
+            android:key="pAdjustedPastFuture"
+            android:summary="@string/adjust_past_future_summary"
+            android:title="@string/adjust_past_future" />
+
+        <SeekBarPreference
+            android:defaultValue="@string/default_adjust_no_of_days"
+            android:key="pAdjustedNoOfDays"
+            android:max="@string/max_adjust_no_of_days"
+            android:min="@string/min_adjust_no_of_days"
+            android:title="@string/adjusted_no_of_days"
+            app:seekBarIncrement="1"
+            app:showSeekBarValue="true" />
+
+        <com.marwahtechsolutions.hijriwidget.preference.TimePreference
+            android:defaultValue="@string/default_maghrib_time"
+            android:key="pMagribTime"
+            android:title="@string/maghrib_time" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>
