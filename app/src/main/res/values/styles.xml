@@ -1,54 +1,56 @@
 <resources>
-    <style name="AppTheme" parent="Theme.AppCompat.DayNight">
-    </style>
-    <style name="MainBox">
-        <item name="android:padding">2dp</item>
+
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight" />
+
+    <style name="BaseMainBox">
         <item name="android:layout_width">40dp</item>
         <item name="android:layout_height">180dp</item>
         <item name="android:weightSum">100</item>
     </style>
-    <style name="parentBox">
+
+    <style name="BaseParentBox">
         <item name="android:orientation">vertical</item>
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">fill_parent</item>
     </style>
-    <style name="SalahTimeBox" parent="parentBox">
-        <item name="android:layout_weight">30</item>
-    </style>
-    <style name="DateBox"  parent="parentBox">
+
+    <style name="BaseDateBox" parent="BaseParentBox">
         <item name="android:layout_marginRight">1dp</item>
         <item name="android:layout_weight">30</item>
         <item name="android:weightSum">100</item>
-        <item name="android:background">#FF000000</item>
-    </style>
-    <style name="DateMonthYearBox"  parent="parentBox">
-        <item name="android:layout_weight">70</item>
-        <item name="android:background">#FF000000</item>
+        <item name="android:background">@color/background_color</item>
     </style>
 
-    <style name="DateDayBox">
+    <style name="BaseDateMonthYearBox" parent="BaseParentBox">
+        <item name="android:layout_weight">70</item>
+        <item name="android:background">@color/background_color</item>
+    </style>
+
+    <style name="BaseDateDayBox">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">0dp</item>
         <item name="android:layout_weight">65</item>
         <item name="android:weightSum">100</item>
         <item name="android:paddingTop">2dp</item>
     </style>
-    <style name="DateNameDayBox">
+
+    <style name="BaseDateNameDayBox">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">0dp</item>
         <item name="android:layout_weight">35</item>
     </style>
 
-    <style name="Day">
+    <style name="BaseDay">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">fill_parent</item>
         <item name="android:gravity">right|center_horizontal</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">30sp</item>
         <item name="android:layout_weight">75</item>
-        <item name="android:textColor">@color/white_color</item>
+        <item name="android:textColor">@color/text_color</item>
     </style>
-    <style name="Suffix">
+
+    <style name="BaseSuffix">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">fill_parent</item>
         <item name="android:gravity">left</item>
@@ -56,33 +58,55 @@
         <item name="android:textSize">10sp</item>
         <item name="android:layout_weight">25</item>
         <item name="android:paddingTop">3dp</item>
-        <item name="android:textColor">@color/white_color</item>
+        <item name="android:textColor">@color/text_color</item>
     </style>
-    <style name="DayName">
+
+    <style name="BaseDayName">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">fill_parent</item>
         <item name="android:gravity">top|center_horizontal</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">10sp</item>
-        <item name="android:textColor">@color/white_color</item>
+        <item name="android:textColor">@color/text_color</item>
     </style>
-    <style name="Month">
+
+    <style name="BaseMonth">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">fill_parent</item>
         <item name="android:gravity">center_horizontal|bottom</item>
         <item name="android:layout_weight">1</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">18sp</item>
-        <item name="android:textColor">@color/white_color</item>
+        <item name="android:textColor">@color/text_color</item>
     </style>
-    <style name="Year">
+
+    <style name="BaseYear">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">fill_parent</item>
         <item name="android:gravity">center</item>
         <item name="android:layout_weight">1</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">24sp</item>
-        <item name="android:textColor">@color/white_color</item>
+        <item name="android:textColor">@color/text_color</item>
     </style>
 
+    <style name="MainBox" parent="BaseMainBox" />
+
+    <style name="DateBox" parent="BaseDateBox" />
+
+    <style name="DateMonthYearBox" parent="BaseDateMonthYearBox" />
+
+    <style name="DateDayBox" parent="BaseDateDayBox" />
+
+    <style name="DateNameDayBox" parent="BaseDateNameDayBox" />
+
+    <style name="Day" parent="BaseDay" />
+
+    <style name="Suffix" parent="BaseSuffix" />
+
+    <style name="DayName" parent="BaseDayName" />
+
+    <style name="Month" parent="BaseMonth" />
+
+    <style name="Year" parent="BaseYear" />
 </resources>

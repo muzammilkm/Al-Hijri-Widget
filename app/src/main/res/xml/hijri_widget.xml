@@ -5,7 +5,7 @@
     android:previewImage="@drawable/hijri_widget_preview"
     android:updatePeriodMillis="0"
     android:resizeMode="none"
-    android:minHeight="40dp"
-    android:minWidth="180dp"
+    android:targetCellHeight="1"
+    android:targetCellWidth="3"
     android:widgetCategory="home_screen">
 </appwidget-provider>
