@@ -2,9 +2,7 @@ package com.marwahtechsolutions.hijriwidget.models;
 
 import android.icu.util.Calendar;
 import android.icu.util.IslamicCalendar;
-
-import com.marwahtechsolutions.hijriwidget.models.Time;
-
+import androidx.annotation.NonNull;
 import java.util.Map;
 
 public class HijriWidgetCalendar {
@@ -29,7 +27,8 @@ public class HijriWidgetCalendar {
         int magribHour = Time.parseHour(maghribTime);
         int maghribMinute = Time.parseMinute(maghribTime);
 
-        if (currentHour >= magribHour && currentMinute >= maghribMinute) {
+        if (currentHour > magribHour ||
+                (currentHour == magribHour && currentMinute >= maghribMinute)) {
             adjustedNumberOfDays += 1;
         }
 
@@ -77,6 +76,7 @@ public class HijriWidgetCalendar {
         return String.format(this.get(Calendar.YEAR), this.getERA());
     }
 
+    @NonNull
     @Override
     public String toString() {
         return String.format("%s/%s/%s",

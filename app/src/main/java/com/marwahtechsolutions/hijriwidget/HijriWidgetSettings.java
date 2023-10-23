@@ -49,7 +49,7 @@ public class HijriWidgetSettings extends AppCompatActivity {
     private void UpdateWidget() {
         Intent intent = new Intent(
                 AppWidgetManager.ACTION_APPWIDGET_UPDATE, null, this,
-                HijriWidget.class
+                HijriWidgetProvider.class
         );
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, new int[]{appWidgetId});
         sendBroadcast(intent);

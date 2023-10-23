@@ -4,7 +4,7 @@ import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
@@ -22,12 +22,12 @@ public class HijriWidgetWorker extends Worker {
     @Override
     public Result doWork() {
 
-        ComponentName componentName = new ComponentName(context, HijriWidget.class);
+        ComponentName componentName = new ComponentName(context, HijriWidgetProvider.class);
         AppWidgetManager manager = AppWidgetManager.getInstance(context);
         int[] appWidgetIds = manager.getAppWidgetIds(componentName);
         Intent intent = new Intent(
                 AppWidgetManager.ACTION_APPWIDGET_UPDATE, null, context,
-                HijriWidget.class
+                HijriWidgetProvider.class
         );
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetIds);
         context.sendBroadcast(intent);

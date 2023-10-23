@@ -8,20 +8,17 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.RemoteViews;
-
 import androidx.annotation.NonNull;
 import androidx.preference.PreferenceManager;
 import androidx.work.ExistingPeriodicWorkPolicy;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
-
 import com.marwahtechsolutions.hijriwidget.models.HijriWidgetCalendar;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-public class HijriWidget extends AppWidgetProvider {
+public class HijriWidgetProvider extends AppWidgetProvider {
 
     public static final String TAG = "HijriWidget";
     private static final String WORK_NAME = "HijriWidgetWorker";
@@ -53,8 +50,6 @@ public class HijriWidget extends AppWidgetProvider {
         );
 
         // Refreshing the view
-        // remoteViews.setInt(R.id.llDateBox, "setBackgroundColor", background);
-        // remoteViews.setInt(R.id.llDateMonthYearBox, "setBackgroundColor", background);
 
         remoteViews.setTextViewText(R.id.tvDay, dateHijri.getDay());
         remoteViews.setTextViewText(R.id.tvSuffix, dateHijri.getDaySuffix());
@@ -62,7 +57,7 @@ public class HijriWidget extends AppWidgetProvider {
         remoteViews.setTextViewText(R.id.tvYear, dateHijri.getFormattedYear());
         remoteViews.setTextViewText(R.id.tvDayName, dateHijri.getDayName());
 
-        Log.d(TAG, String.format("Current Hijri Date %s", dateHijri.toString()));
+        Log.d(TAG, String.format("Current Hijri Date %s", dateHijri));
 
         // Setting Click Intent
         Intent intent = new Intent(context, HijriWidgetSettings.class);
@@ -122,7 +117,6 @@ public class HijriWidget extends AppWidgetProvider {
         return prefs.getString(key, defaultValue);
     }
 
-    @NonNull
     private static int getPrefInt(Context context, SharedPreferences prefs, String key, int defaultRes) {
         int defaultValue = Integer.parseInt(context.getResources().getString(defaultRes));
         return prefs.getInt(key, defaultValue);

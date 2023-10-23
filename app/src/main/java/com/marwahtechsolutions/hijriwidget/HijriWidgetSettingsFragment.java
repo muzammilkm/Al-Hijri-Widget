@@ -12,7 +12,7 @@ import com.marwahtechsolutions.hijriwidget.preference.TimePreferenceDialogFragme
 public class HijriWidgetSettingsFragment extends PreferenceFragmentCompat {
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-        setPreferencesFromResource(R.xml.root_settings, rootKey);
+        setPreferencesFromResource(R.xml.hijri_widget_settings, rootKey);
     }
 
     private static final String DIALOG_FRAGMENT_TAG = "TimePreference";
