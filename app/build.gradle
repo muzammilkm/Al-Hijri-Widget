@@ -6,8 +6,8 @@ android {
         applicationId "com.marwahtechsolutions.hijriwidget"
         minSdkVersion 26
         targetSdkVersion 33
-        versionCode 11
-        versionName "v11"
+        versionCode 12
+        versionName "v12"
     }
 
     buildTypes {
