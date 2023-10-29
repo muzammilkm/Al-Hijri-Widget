@@ -8,7 +8,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <receiver
-            android:name=".HijriWidgetProvider"
+            android:name=".HijriWidgetProviderLarge"
             android:exported="false">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -16,7 +16,18 @@
 
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/hijri_widget" />
+                android:resource="@xml/hijri_widget_large" />
+        </receiver>
+        <receiver
+            android:name=".HijriWidgetProviderSmall"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/hijri_widget_small" />
         </receiver>
 
         <activity

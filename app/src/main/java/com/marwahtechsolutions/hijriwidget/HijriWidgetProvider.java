@@ -8,12 +8,15 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.RemoteViews;
+
 import androidx.annotation.NonNull;
 import androidx.preference.PreferenceManager;
 import androidx.work.ExistingPeriodicWorkPolicy;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
+
 import com.marwahtechsolutions.hijriwidget.models.HijriWidgetCalendar;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -25,19 +28,14 @@ public class HijriWidgetProvider extends AppWidgetProvider {
     private static final int UPDATE_INTERVAL = 30;
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
-                                int appWidgetId) {
-
-        RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
-                R.layout.hijri_widget);
+                                int appWidgetId, int layoutId) {
 
         SharedPreferences prefs = PreferenceManager
                 .getDefaultSharedPreferences(context);
 
         int locale = getLocale(context, prefs);
-        int adjustedNumberOfDays = getPrefInt(context,prefs,"pAdjustedNoOfDays", R.string.default_adjust_no_of_days);
-        String maghribTime = getPrefString(context,prefs,"pMagribTime", R.string.default_maghrib_time);
-
-        // int background = prefs.getInt("pTheme", context.getResources().getColor(R.color.defaultThemeColor));
+        int adjustedNumberOfDays = getPrefInt(context, prefs, "pAdjustedNoOfDays", R.string.default_adjust_no_of_days);
+        String maghribTime = getPrefString(context, prefs, "pMagribTime", R.string.default_maghrib_time);
 
         Map<Integer, String[]> arrHijriMonths = getHijriNames(context, R.array.hijri_months_arabic, R.array.hijri_months_english);
         Map<Integer, String[]> arrHijriDayOfWeek = getHijriNames(context, R.array.hijri_days_arabic, R.array.hijri_days_english);
@@ -49,6 +47,10 @@ public class HijriWidgetProvider extends AppWidgetProvider {
                 maghribTime
         );
 
+        Log.d(TAG, String.format("Current Hijri Date %s %d", dateHijri, layoutId));
+
+        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), layoutId);
+
         // Refreshing the view
 
         remoteViews.setTextViewText(R.id.tvDay, dateHijri.getDay());
@@ -57,14 +59,13 @@ public class HijriWidgetProvider extends AppWidgetProvider {
         remoteViews.setTextViewText(R.id.tvYear, dateHijri.getFormattedYear());
         remoteViews.setTextViewText(R.id.tvDayName, dateHijri.getDayName());
 
-        Log.d(TAG, String.format("Current Hijri Date %s", dateHijri));
 
         // Setting Click Intent
         Intent intent = new Intent(context, HijriWidgetSettings.class);
         intent.setAction(AppWidgetManager.ACTION_APPWIDGET_CONFIGURE);
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent,
-                PendingIntent.FLAG_UPDATE_CURRENT  | PendingIntent.FLAG_IMMUTABLE);
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         remoteViews.setOnClickPendingIntent(R.id.llMainBox, pendingIntent);
 
         // Instruct the widget manager to update the widget
@@ -72,15 +73,8 @@ public class HijriWidgetProvider extends AppWidgetProvider {
     }
 
     @Override
-    public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-        for (int appWidgetId : appWidgetIds) {
-            updateAppWidget(context, appWidgetManager, appWidgetId);
-        }
-    }
-
-    @Override
     public void onEnabled(Context context) {
-         PeriodicWorkRequest saveRequest = new PeriodicWorkRequest
+        PeriodicWorkRequest saveRequest = new PeriodicWorkRequest
                 .Builder(HijriWidgetWorker.class, UPDATE_INTERVAL, TimeUnit.MINUTES)
                 .build();
 
@@ -105,8 +99,8 @@ public class HijriWidgetProvider extends AppWidgetProvider {
     }
 
     private static int getLocale(Context context, SharedPreferences prefs) {
-        String pLanguage = getPrefString(context, prefs,"pLanguage", R.string.default_language);
-        if(pLanguage.equalsIgnoreCase("AR"))
+        String pLanguage = getPrefString(context, prefs, "pLanguage", R.string.default_language);
+        if (pLanguage.equalsIgnoreCase("AR"))
             return HijriWidgetCalendar.AR;
         return HijriWidgetCalendar.EN;
     }
