@@ -1,26 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.marwahtechsolutions.hijriwidget">
+
     <application
-        android:icon="@drawable/icon"
+        android:icon="@drawable/hijri_widget_icon"
         android:label="@string/app_name"
-        android:theme="@android:style/Theme.Holo.Light">
-        <activity android:name=".HijriConfig">
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <receiver
+            android:name=".HijriWidgetProvider"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/hijri_widget" />
+        </receiver>
+
+        <activity
+            android:name=".HijriWidgetSettings"
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
             </intent-filter>
         </activity>
-        <receiver
-            android:name=".HijriWidgetProvider"
-            android:label="@string/app_name">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-            </intent-filter>
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/hijri_widget_provider" />
-        </receiver>
-        <service android:name=".WidgetService" android:label="Al Hijri Widget Service">
-        </service>
     </application>
+
 </manifest>

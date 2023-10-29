@@ -1,26 +1,39 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "26.0.2"
-
+    compileSdk 33
     defaultConfig {
         applicationId "com.marwahtechsolutions.hijriwidget"
-        minSdkVersion 16
-        targetSdkVersion 23
-        versionCode 9
-        versionName "v8.1"
-        vectorDrawables.useSupportLibrary = true
+        minSdkVersion 26
+        targetSdkVersion 33
+        versionCode 12
+        versionName "v12"
     }
 
     buildTypes {
         release {
             minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    namespace 'com.marwahtechsolutions.hijriwidget'
+
+    buildFeatures {
+        viewBinding = true
+    }
 }
+
 dependencies {
-    compile 'com.android.support:support-v4:25.+'
-    compile 'com.android.support:support-vector-drawable:25.+'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.work:work-runtime:2.2.0'
+    // For apps targeting Android 12, add WorkManager dependency.
+    constraints {
+        implementation('androidx.work:work-runtime:2.7.0') {
+            because '''androidx.work:work-runtime:2.1.0 pulled from
+    play-services-ads has a bug using PendingIntent without
+    FLAG_IMMUTABLE or FLAG_MUTABLE and will fail in Apps
+    targeting S+.'''
+        }
+    }
+    implementation "androidx.preference:preference:1.2.1"
 }

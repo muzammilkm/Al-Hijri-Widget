@@ -22,3 +22,4 @@ gradle/
 /
 gradlew
 gradlew.bat
+app/release/
