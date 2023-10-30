@@ -1,15 +1,15 @@
 package com.marwahtechsolutions.hijriwidget;
 
 import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class HijriWidgetSettings extends AppCompatActivity {
 
-    private int appWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
+public class HijriWidgetSettings extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,13 +22,6 @@ public class HijriWidgetSettings extends AppCompatActivity {
                     .commit();
         }
 
-        Intent intent = getIntent();
-        Bundle localBundle = intent.getExtras();
-        if (localBundle != null) {
-            appWidgetId = localBundle.getInt(
-                    AppWidgetManager.EXTRA_APPWIDGET_ID,
-                    AppWidgetManager.INVALID_APPWIDGET_ID);
-        }
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
@@ -47,13 +40,32 @@ public class HijriWidgetSettings extends AppCompatActivity {
     }
 
     private void UpdateWidget() {
-        Intent intent = new Intent(
+
+
+        AppWidgetManager manager = AppWidgetManager.getInstance(this);
+        ComponentName largeComponentName = new ComponentName(this, HijriWidgetProviderLarge.class);
+        int[] appLargeWidgetIds = manager.getAppWidgetIds(largeComponentName);
+
+        ComponentName smallComponentName = new ComponentName(this, HijriWidgetProviderSmall.class);
+        int[] appSmallWidgetIds = manager.getAppWidgetIds(smallComponentName);
+
+        Intent largeIntent = new Intent(
                 AppWidgetManager.ACTION_APPWIDGET_UPDATE, null, this,
-                HijriWidgetProvider.class
+                HijriWidgetProviderLarge.class
         );
-        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, new int[]{appWidgetId});
-        sendBroadcast(intent);
-        setResult(RESULT_OK, intent);
+        largeIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appLargeWidgetIds);
+        sendBroadcast(largeIntent);
+
+
+        Intent smallIntent = new Intent(
+                AppWidgetManager.ACTION_APPWIDGET_UPDATE, null, this,
+                HijriWidgetProviderSmall.class
+        );
+        smallIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appSmallWidgetIds);
+        sendBroadcast(smallIntent);
+
+        setResult(RESULT_OK, largeIntent);
+        setResult(RESULT_OK, smallIntent);
         finish();
     }
 }
