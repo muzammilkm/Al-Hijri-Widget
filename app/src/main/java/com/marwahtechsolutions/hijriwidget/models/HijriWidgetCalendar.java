@@ -69,11 +69,11 @@ public class HijriWidgetCalendar {
 
     public String getMonthName() {
         int month = _calendar.get(Calendar.MONTH);
-        return this._arrHijriMonths[month - 1];
+        return this._arrHijriMonths[month];
     }
 
     public String getFormattedYear() {
-        return String.format(this.get(Calendar.YEAR), this.getERA());
+        return String.format("%s %s", this.get(Calendar.YEAR), this.getERA());
     }
 
     @NonNull
