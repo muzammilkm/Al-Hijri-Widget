@@ -18,14 +18,14 @@
     <style name="SmallDateDayBox">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">0dp</item>
-        <item name="android:layout_weight">35</item>
+        <item name="android:layout_weight">30</item>
         <item name="android:weightSum">100</item>
     </style>
     <style name="SmallDateNameDayBox">
         <item name="android:orientation">vertical</item>
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">0dp</item>
-        <item name="android:layout_weight">65</item>
+        <item name="android:layout_weight">70</item>
     </style>
 
     <style name="SmallDay">
@@ -33,7 +33,7 @@
         <item name="android:layout_height">fill_parent</item>
         <item name="android:gravity">right|center_horizontal</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textSize">22sp</item>
+        <item name="android:autoSizeTextType">uniform</item>
         <item name="android:layout_weight">75</item>
         <item name="android:textColor">@color/text_color</item>
     </style>
@@ -50,25 +50,31 @@
     <style name="SmallDayName">
         <item name="android:visibility">gone</item>
         <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">fill_parent</item>
+        <item name="android:layout_height">0dp</item>
         <item name="android:textSize">0sp</item>
     </style>
     <style name="SmallMonth">
         <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:gravity">center</item>
-        <item name="android:layout_weight">1</item>
+        <item name="android:layout_weight">70</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textSize">12sp</item>
+        <item name="android:autoSizeTextType">uniform</item>
+        <item name="android:autoSizeMinTextSize">16dp</item>
+        <item name="android:autoSizeMaxTextSize">18dp</item>
+        <item name="android:autoSizeStepGranularity">1dp</item>
         <item name="android:textColor">@color/text_color</item>
     </style>
     <style name="SmallYear">
         <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:gravity">center</item>
-        <item name="android:layout_weight">1</item>
+        <item name="android:layout_weight">30</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textSize">10sp</item>
+        <item name="android:autoSizeTextType">none</item>
+        <item name="android:autoSizeMinTextSize">9dp</item>
+        <item name="android:autoSizeMaxTextSize">10dp</item>
+        <item name="android:autoSizeStepGranularity">1dp</item>
         <item name="android:textColor">@color/text_color</item>
     </style>
 </resources>

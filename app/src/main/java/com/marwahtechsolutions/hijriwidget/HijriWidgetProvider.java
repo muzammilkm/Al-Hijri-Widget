@@ -27,8 +27,15 @@ public class HijriWidgetProvider extends AppWidgetProvider {
     private static final String WORK_NAME = "HijriWidgetWorker";
     private static final int UPDATE_INTERVAL = 30;
 
-    static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
-                                int appWidgetId, int layoutId) {
+    private final int layoutId;
+
+    public HijriWidgetProvider(int layoutId)
+    {
+        this.layoutId = layoutId;
+    }
+
+     private void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
+                                int appWidgetId) {
 
         SharedPreferences prefs = PreferenceManager
                 .getDefaultSharedPreferences(context);
@@ -47,9 +54,9 @@ public class HijriWidgetProvider extends AppWidgetProvider {
                 maghribTime
         );
 
-        Log.d(TAG, String.format("Current Hijri Date %s %d", dateHijri, layoutId));
+        Log.d(TAG, String.format("Current Hijri Date %s %d", dateHijri, this.layoutId));
 
-        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), layoutId);
+        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), this.layoutId);
 
         // Refreshing the view
 
@@ -70,6 +77,13 @@ public class HijriWidgetProvider extends AppWidgetProvider {
 
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, remoteViews);
+    }
+
+    @Override
+    public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
+        for (int appWidgetId : appWidgetIds) {
+            updateAppWidget(context, appWidgetManager, appWidgetId);
+        }
     }
 
     @Override
