@@ -3,41 +3,41 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    style="@style/MainBox">
+    style="@style/LargeMainBox">
     <LinearLayout
         android:id="@+id/llDateBox"
-        style="@style/DateBox">
+        style="@style/LargeDateBox">
         <LinearLayout
             android:id="@+id/llDateDayBox"
-            style="@style/DateDayBox">
+            style="@style/LargeDateDayBox">
             <TextView
                 android:id="@+id/tvDay"
                 android:text="15"
-                style="@style/Day" />
+                style="@style/LargeDay" />
             <TextView
                 android:id="@+id/tvSuffix"
                 android:text="th"
-                style="@style/Suffix" />
+                style="@style/LargeSuffix" />
         </LinearLayout>
         <LinearLayout
             android:id="@+id/llDateNameDayBox"
-            style="@style/DateNameDayBox">
+            style="@style/LargeDateNameDayBox">
             <TextView
                 android:id="@+id/tvDayName"
                 android:text="Jummah"
-                style="@style/DayName" />
+                style="@style/LargeDayName" />
         </LinearLayout>
     </LinearLayout>
     <LinearLayout
         android:id="@+id/llDateMonthYearBox"
-        style="@style/DateMonthYearBox">
+        style="@style/LargeDateMonthYearBox">
         <TextView
             android:id="@+id/tvMonth"
             android:text="Muharram"
-            style="@style/Month" />
+            style="@style/LargeMonth" />
         <TextView
             android:id="@+id/tvYear"
             android:text="1445"
-            style="@style/Year" />
+            style="@style/LargeYear" />
     </LinearLayout>
 </LinearLayout>

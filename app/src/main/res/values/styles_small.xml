@@ -1,0 +1,80 @@
+<resources>
+    <style name="SmallMainBox">
+        <item name="android:layout_width">70dp</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:weightSum">100</item>
+    </style>
+    <style name="SmallBaseParentBox">
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">fill_parent</item>
+    </style>
+    <style name="SmallDateBox" parent="SmallBaseParentBox">
+        <item name="android:layout_weight">100</item>
+        <item name="android:weightSum">100</item>
+        <item name="android:background">@color/background_color</item>
+    </style>
+
+    <style name="SmallDateDayBox">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_weight">30</item>
+        <item name="android:weightSum">100</item>
+    </style>
+    <style name="SmallDateNameDayBox">
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_weight">70</item>
+    </style>
+
+    <style name="SmallDay">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:gravity">right|center_horizontal</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:autoSizeTextType">uniform</item>
+        <item name="android:layout_weight">75</item>
+        <item name="android:textColor">@color/text_color</item>
+    </style>
+    <style name="SmallSuffix">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:gravity">left</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:layout_weight">25</item>
+        <item name="android:paddingTop">3dp</item>
+        <item name="android:textColor">@color/text_color</item>
+    </style>
+    <style name="SmallDayName">
+        <item name="android:visibility">gone</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:textSize">0sp</item>
+    </style>
+    <style name="SmallMonth">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_weight">70</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:autoSizeTextType">uniform</item>
+        <item name="android:autoSizeMinTextSize">16dp</item>
+        <item name="android:autoSizeMaxTextSize">18dp</item>
+        <item name="android:autoSizeStepGranularity">1dp</item>
+        <item name="android:textColor">@color/text_color</item>
+    </style>
+    <style name="SmallYear">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_weight">30</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:autoSizeTextType">none</item>
+        <item name="android:autoSizeMinTextSize">9dp</item>
+        <item name="android:autoSizeMaxTextSize">10dp</item>
+        <item name="android:autoSizeStepGranularity">1dp</item>
+        <item name="android:textColor">@color/text_color</item>
+    </style>
+</resources>

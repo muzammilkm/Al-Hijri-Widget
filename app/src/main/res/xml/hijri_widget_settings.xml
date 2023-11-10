@@ -11,20 +11,13 @@
             app:title="@string/language"
             app:useSimpleSummaryProvider="true" />
 
-        <SwitchPreference
-            android:defaultValue="@string/default_adjust_past_future"
-            android:key="pAdjustedPastFuture"
-            android:summary="@string/adjust_past_future_summary"
-            android:title="@string/adjust_past_future" />
-
-        <SeekBarPreference
+        <ListPreference
             android:defaultValue="@string/default_adjust_no_of_days"
+            android:entries="@array/adjust_no_of_days_list"
+            android:entryValues="@array/adjust_no_of_days_list"
             android:key="pAdjustedNoOfDays"
-            android:max="@string/max_adjust_no_of_days"
-            android:min="@string/min_adjust_no_of_days"
             android:title="@string/adjusted_no_of_days"
-            app:seekBarIncrement="1"
-            app:showSeekBarValue="true" />
+            android:summary="@string/no_adjust_no_of_days_summary" />
 
         <com.marwahtechsolutions.hijriwidget.preference.TimePreference
             android:defaultValue="@string/default_maghrib_time"

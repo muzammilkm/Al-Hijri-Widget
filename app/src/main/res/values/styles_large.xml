@@ -1,0 +1,82 @@
+<resources>
+    <style name="LargeMainBox">
+        <item name="android:padding">2dp</item>
+        <item name="android:layout_width">80dp</item>
+        <item name="android:layout_height">180dp</item>
+        <item name="android:weightSum">100</item>
+    </style>
+    <style name="LargeBaseParentBox">
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">fill_parent</item>
+    </style>
+    <style name="LargeDateBox"  parent="LargeBaseParentBox">
+        <item name="android:layout_marginRight">1dp</item>
+        <item name="android:layout_weight">30</item>
+        <item name="android:weightSum">100</item>
+        <item name="android:background">@color/background_color</item>
+    </style>
+    <style name="LargeDateMonthYearBox"  parent="LargeBaseParentBox">
+        <item name="android:layout_weight">70</item>
+        <item name="android:background">@color/background_color</item>
+    </style>
+
+    <style name="LargeDateDayBox">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_weight">65</item>
+        <item name="android:weightSum">100</item>
+        <item name="android:paddingTop">2dp</item>
+    </style>
+    <style name="LargeDateNameDayBox">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_weight">35</item>
+    </style>
+
+    <style name="LargeDay">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:gravity">right|center_horizontal</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">30sp</item>
+        <item name="android:layout_weight">75</item>
+        <item name="android:textColor">@color/text_color</item>
+    </style>
+    <style name="LargeSuffix">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:gravity">left</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:layout_weight">25</item>
+        <item name="android:paddingTop">3dp</item>
+        <item name="android:textColor">@color/text_color</item>
+    </style>
+    <style name="LargeDayName">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:gravity">top|center_horizontal</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">@color/text_color</item>
+    </style>
+    <style name="LargeMonth">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:gravity">center_horizontal|bottom</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/text_color</item>
+    </style>
+    <style name="LargeYear">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/text_color</item>
+    </style>
+</resources>
