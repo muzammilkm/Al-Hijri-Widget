@@ -29,20 +29,19 @@ public class HijriWidgetProvider extends AppWidgetProvider {
 
     private final int layoutId;
 
-    public HijriWidgetProvider(int layoutId)
-    {
+    public HijriWidgetProvider(int layoutId) {
         this.layoutId = layoutId;
     }
 
-     private void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
-                                int appWidgetId) {
+    private void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
+                                 int appWidgetId) {
 
         SharedPreferences prefs = PreferenceManager
                 .getDefaultSharedPreferences(context);
 
         int locale = getLocale(context, prefs);
-        int adjustedNumberOfDays = getPrefInt(context, prefs, "pAdjustedNoOfDays", R.string.default_adjust_no_of_days);
-        String maghribTime = getPrefString(context, prefs, "pMagribTime", R.string.default_maghrib_time);
+        int adjustedNumberOfDays = getAdjustNoOfDays(context, prefs);
+        String maghribTime = getMagribTime(context, prefs);
 
         Map<Integer, String[]> arrHijriMonths = getHijriNames(context, R.array.hijri_months_arabic, R.array.hijri_months_english);
         Map<Integer, String[]> arrHijriDayOfWeek = getHijriNames(context, R.array.hijri_days_arabic, R.array.hijri_days_english);
@@ -119,14 +118,18 @@ public class HijriWidgetProvider extends AppWidgetProvider {
         return HijriWidgetCalendar.EN;
     }
 
+    private static int getAdjustNoOfDays(Context context, SharedPreferences prefs) {
+        String pAdjustedNoOfDays = getPrefString(context, prefs, "pAdjustedNoOfDays", R.string.default_adjust_no_of_days);
+        return Integer.parseInt(pAdjustedNoOfDays);
+    }
+
+    private static String getMagribTime(Context context, SharedPreferences prefs) {
+        return getPrefString(context, prefs, "pMagribTime", R.string.default_maghrib_time);
+    }
+
     @NonNull
     private static String getPrefString(Context context, SharedPreferences prefs, String key, int defaultRes) {
         String defaultValue = context.getResources().getString(defaultRes);
         return prefs.getString(key, defaultValue);
-    }
-
-    private static int getPrefInt(Context context, SharedPreferences prefs, String key, int defaultRes) {
-        int defaultValue = Integer.parseInt(context.getResources().getString(defaultRes));
-        return prefs.getInt(key, defaultValue);
     }
 }

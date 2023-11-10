@@ -6,14 +6,11 @@
     <string name="language">Language</string>
     <string name="default_language">EN</string>
 
-    <string name="adjusted_no_of_days">Adjust Number Of Days</string>
+    <string name="adjusted_no_of_days">Adjust Hijri Date</string>
     <string name="default_adjust_no_of_days">0</string>
     <string name="max_adjust_no_of_days">3</string>
     <string name="min_adjust_no_of_days">0</string>
-
-    <string name="adjust_past_future">Adjust Past or Future</string>
-    <string name="adjust_past_future_summary">Turn on/off for increasing/decreasing number of adjusted days</string>
-    <string name="default_adjust_past_future">true</string>
+    <string name="no_adjust_no_of_days_summary">by %s day(s)</string>
 
     <string name="default_maghrib_time">18:00</string>
     <string name="maghrib_time">Maghrib Time</string>
