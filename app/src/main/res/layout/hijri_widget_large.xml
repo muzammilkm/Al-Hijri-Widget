@@ -12,7 +12,7 @@
             style="@style/LargeDateDayBox">
             <TextView
                 android:id="@+id/tvDay"
-                android:text="15"
+                android:text="10"
                 style="@style/LargeDay" />
             <TextView
                 android:id="@+id/tvSuffix"
