@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="hijri_days_arabic">
-        <item>الأحد</item>
         <item>الإثنين</item>
         <item>الثُّلَاثاء</item>
         <item>الأَرْبعاء</item>
         <item>الخَمِيس</item>
         <item>الجُمْعَة</item>
         <item>السَّبْت</item>
+        <item>الأحد</item>
     </string-array>
     <string-array name="hijri_days_english">
-        <item>Al-aḥad</item>
         <item>Al-ithnayn</item>
         <item>Al-thalāthāʾ</item>
         <item>Al-arbaʿāʾ</item>
         <item>Al-khamīs</item>
         <item>Al-jumuʿah</item>
         <item>Al-sabt</item>
+        <item>Al-aḥad</item>
     </string-array>
 </resources>
