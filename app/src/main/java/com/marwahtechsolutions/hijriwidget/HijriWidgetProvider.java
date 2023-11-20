@@ -3,6 +3,7 @@ package com.marwahtechsolutions.hijriwidget;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -53,7 +54,7 @@ public class HijriWidgetProvider extends AppWidgetProvider {
                 maghribTime
         );
 
-        Log.d(TAG, String.format("Current Hijri Date %s %d", dateHijri, this.layoutId));
+        Log.d(TAG, String.format("Current Hijri Date %s layout: %d, widgetId: %d", dateHijri, this.layoutId, appWidgetId));
 
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), this.layoutId);
 
@@ -99,9 +100,23 @@ public class HijriWidgetProvider extends AppWidgetProvider {
 
     @Override
     public void onDisabled(Context context) {
+        if (hasAppWidgets(context, HijriWidgetProviderLarge.class) ||
+                hasAppWidgets(context, HijriWidgetProviderSmall.class))
+            return;
+
         WorkManager
                 .getInstance(context)
                 .cancelUniqueWork(WORK_NAME);
+    }
+
+    public static boolean hasAppWidgets(Context context, Class<?> cls) {
+        return getAppWidgetIds(context, cls).length > 0;
+    }
+
+    public static int[] getAppWidgetIds(Context context, Class<?> cls) {
+        ComponentName componentName = new ComponentName(context, cls);
+        AppWidgetManager manager = AppWidgetManager.getInstance(context);
+        return manager.getAppWidgetIds(componentName);
     }
 
     private static Map<Integer, String[]> getHijriNames(Context context, int hijri_arabic, int hijri_english) {
